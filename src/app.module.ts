@@ -4,4 +4,4 @@ import { TaskModule } from './task/task.module';
 @Module({
   imports: [TaskModule],
 })
-export class AppModule {}     
+export class AppModule {}
