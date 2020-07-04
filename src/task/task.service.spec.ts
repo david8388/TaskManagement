@@ -102,4 +102,26 @@ describe('TaskService', () => {
       );
     });
   });
+
+  describe('update task status', () => {
+    it('updates a task status', async () => {
+      const save = jest.fn().mockResolvedValue(true);
+
+      taskService.getTaskById = jest.fn().mockResolvedValue({
+        status: TaskStatus.OPEN,
+        save,
+      });
+
+      expect(taskService.getTaskById).not.toHaveBeenCalled();
+      expect(save).not.toHaveBeenCalled();
+      const result = await taskService.updateTaskStatusByID(
+        1,
+        TaskStatus.DONE,
+        mockUser,
+      );
+      expect(taskService.getTaskById).toHaveBeenCalled();
+      expect(save).toHaveBeenCalled();
+      expect(result.status).toEqual(TaskStatus.DONE);
+    });
+  });
 });
